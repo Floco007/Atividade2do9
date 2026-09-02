@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Henry Jovem Programador</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: Arial, Helvetica, sans-serif;
+            background:
+                radial-gradient(circle at 20% 30%, #003d5c 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, #001e35 0%, transparent 35%),
+                linear-gradient(135deg, #02060b, #041521, #02070c);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        /* FUNDO GRID */
+
+        .grid {
+            position: absolute;
+            inset: 0;
+
+            background-image:
+                linear-gradient(rgba(0, 200, 255, .06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 200, 255, .06) 1px, transparent 1px);
+
+            background-size: 45px 45px;
+
+            transform: perspective(500px) rotateX(60deg) scale(2);
+            transform-origin: center bottom;
+
+            animation: gridMove 8s linear infinite;
+
+            opacity: .45;
+        }
+
+        @keyframes gridMove {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 0 45px;
+            }
+        }
+
+        /* LUZES FLUTUANTES */
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: .35;
+            animation: orbMove 8s ease-in-out infinite alternate;
+        }
+
+        .orb1 {
+            width: 400px;
+            height: 400px;
+            background: #00c8ff;
+
+            left: -100px;
+            top: -100px;
+        }
+
+        .orb2 {
+            width: 350px;
+            height: 350px;
+
+            background: #005cff;
+
+            right: -100px;
+            bottom: -100px;
+
+            animation-delay: -4s;
+        }
+
+        @keyframes orbMove {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(80px, 50px) scale(1.2);
+            }
+        }
+
+        /* PARTÍCULAS */
+
+        .particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+
+            width: 3px;
+            height: 3px;
+
+            background: #00d9ff;
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 5px #00d9ff,
+                0 0 10px #00d9ff,
+                0 0 20px #00d9ff;
+
+            animation: particleMove linear infinite;
+        }
+
+        @keyframes particleMove {
+            0% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+        }
+
+        /* CONTAINER */
+
+        .container {
+            position: relative;
+
+            z-index: 10;
+
+            width: 420px;
+
+            padding: 45px 38px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(10, 35, 50, .82),
+                    rgba(3, 12, 20, .88)
+                );
+
+            border: 1px solid rgba(0, 210, 255, .35);
+
+            backdrop-filter: blur(20px);
+
+            box-shadow:
+                0 0 20px rgba(0, 200, 255, .15),
+                0 0 60px rgba(0, 130, 255, .10),
+                inset 0 0 25px rgba(0, 200, 255, .04);
+
+            animation: appear 1s ease;
+        }
+
+        @keyframes appear {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(.94);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* CANTOS TECNOLÓGICOS */
+
+        .corner {
+            position: absolute;
+            width: 35px;
+            height: 35px;
+        }
+
+        .corner1 {
+            top: -2px;
+            left: -2px;
+
+            border-top: 3px solid #00d9ff;
+            border-left: 3px solid #00d9ff;
+        }
+
+        .corner2 {
+            top: -2px;
+            right: -2px;
+
+            border-top: 3px solid #00d9ff;
+            border-right: 3px solid #00d9ff;
+        }
+
+        .corner3 {
+            bottom: -2px;
+            left: -2px;
+
+            border-bottom: 3px solid #00d9ff;
+            border-left: 3px solid #00d9ff;
+        }
+
+        .corner4 {
+            bottom: -2px;
+            right: -2px;
+
+            border-bottom: 3px solid #00d9ff;
+            border-right: 3px solid #00d9ff;
+        }
+
+        /* LOGO */
+
+        .logo {
+            width: 70px;
+            height: 70px;
+
+            margin: auto;
+
+            border-radius: 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 32px;
+
+            background: linear-gradient(
+                135deg,
+                rgba(0, 210, 255, .15),
+                rgba(0, 80, 255, .12)
+            );
+
+            border: 1px solid #00cfff;
+
+            box-shadow:
+                0 0 15px rgba(0, 217, 255, .5),
+                inset 0 0 15px rgba(0, 217, 255, .15);
+
+            animation: logoPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes logoPulse {
+
+            0%,
+            100% {
+                box-shadow:
+                    0 0 10px rgba(0, 217, 255, .35),
+                    inset 0 0 15px rgba(0, 217, 255, .15);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 30px rgba(0, 217, 255, .8),
+                    inset 0 0 25px rgba(0, 217, 255, .25);
+            }
+        }
+
+        h1 {
+            text-align: center;
+
+            margin-top: 22px;
+
+            font-size: 27px;
+
+            letter-spacing: 1px;
+
+            background: linear-gradient(
+                90deg,
+                #ffffff,
+                #00d9ff,
+                #ffffff
+            );
+
+            background-size: 200%;
+
+background-clip: text;
+-webkit-background-clip: text;
+
+color: transparent;
+-webkit-text-fill-color: transparent;
+
+animation: textGlow 4s linear infinite;
+        }
+
+        @keyframes textGlow {
+            from {
+                background-position: 0%;
+            }
+
+            to {
+                background-position: 200%;
+            }
+        }
+
+        .subtitle {
+            margin-top: 7px;
+
+            text-align: center;
+
+            font-size: 13px;
+
+            letter-spacing: 3px;
+
+            color: #62dcff;
+
+            opacity: .7;
+        }
+
+        /* LINHA */
+
+        .line {
+            width: 100%;
+            height: 1px;
+
+            margin: 25px 0;
+
+            position: relative;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                #00d9ff,
+                transparent
+            );
+
+            overflow: hidden;
+        }
+
+        .line::after {
+            content: "";
+
+            position: absolute;
+
+            width: 40px;
+            height: 100%;
+
+            background: white;
+
+            box-shadow: 0 0 15px #00eaff;
+
+            animation: lineScan 2s linear infinite;
+        }
+
+        @keyframes lineScan {
+
+            from {
+                left: -50px;
+            }
+
+            to {
+                left: 110%;
+            }
+        }
+
+        /* INPUT */
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+
+            padding: 15px 15px 15px 46px;
+
+            border-radius: 10px;
+
+            border: 1px solid rgba(0, 217, 255, .22);
+
+            outline: none;
+
+            color: white;
+
+            background: rgba(0, 15, 25, .65);
+
+            transition: .3s;
+        }
+
+        .input-group input::placeholder {
+            color: #748995;
+        }
+
+        .input-group input:focus {
+            border-color: #00d9ff;
+
+            box-shadow:
+                0 0 10px rgba(0, 217, 255, .2),
+                inset 0 0 10px rgba(0, 217, 255, .06);
+
+            transform: translateY(-2px);
+        }
+
+        .input-icon {
+            position: absolute;
+
+            left: 16px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #00d9ff;
+        }
+
+        /* OPÇÕES */
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            font-size: 12px;
+
+            margin-bottom: 24px;
+
+            color: #8ba5b2;
+        }
+
+        .options a {
+            color: #00cfff;
+            text-decoration: none;
+        }
+
+        /* BOTÃO */
+
+        button {
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            position: relative;
+
+            overflow: hidden;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+            color: #001018;
+
+            background: linear-gradient(
+                90deg,
+                #00b8ff,
+                #00f0ff
+            );
+
+            box-shadow:
+                0 0 15px rgba(0, 217, 255, .35);
+
+            transition: .3s;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 0 30px rgba(0, 217, 255, .75);
+        }
+
+        button::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: -100%;
+
+            width: 70px;
+            height: 100%;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, .8),
+                transparent
+            );
+
+            transform: skewX(-20deg);
+
+            animation: buttonScan 3s infinite;
+        }
+
+        @keyframes buttonScan {
+            0% {
+                left: -100%;
+            }
+
+            60%,
+            100% {
+                left: 130%;
+            }
+        }
+
+        /* STATUS */
+
+        .status {
+            margin-top: 22px;
+
+            text-align: center;
+
+            color: #497280;
+
+            font-size: 10px;
+
+            letter-spacing: 2px;
+        }
+
+        .dot {
+            display: inline-block;
+
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            margin-right: 6px;
+
+            background: #00ff9d;
+
+            box-shadow: 0 0 8px #00ff9d;
+
+            animation: dotBlink 1.5s infinite;
+        }
+
+        @keyframes dotBlink {
+
+            50% {
+                opacity: .3;
+            }
+        }
+
+        /* MENSAGEM */
+
+        #mensagem {
+            height: 18px;
+
+            margin-top: 15px;
+
+            text-align: center;
+
+            font-size: 13px;
+
+            color: #00eaff;
+        }
+
+        /* SCANNER */
+
+        .scanner {
+            position: absolute;
+
+            width: 100%;
+            height: 1px;
+
+            left: 0;
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 225, 255, .5),
+                transparent
+            );
+
+            box-shadow: 0 0 8px #00d9ff;
+
+            animation: scan 6s linear infinite;
+
+            pointer-events: none;
+        }
+
+        @keyframes scan {
+
+            from {
+                top: 0;
+            }
+
+            to {
+                top: 100%;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .container {
+                width: calc(100% - 30px);
+                padding: 35px 25px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- FUNDO -->
+
+    <div class="grid"></div>
+
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+
+    <div class="particles" id="particles"></div>
+
+
+    <!-- LOGIN -->
+
+    <div class="container">
+
+        <div class="scanner"></div>
+
+        <div class="corner corner1"></div>
+        <div class="corner corner2"></div>
+        <div class="corner corner3"></div>
+        <div class="corner corner4"></div>
+
+        <div class="logo">
+            &lt;/&gt;
+        </div>
+
+        <h1>Henry Jovem Programador</h1>
+
+        <div class="subtitle">
+            SYSTEM ACCESS
+        </div>
+
+        <div class="line"></div>
+
+        <form id="loginForm">
+
+            <div class="input-group">
+
+                <span class="input-icon">👤</span>
+
+                <input
+                    type="text"
+                    id="usuario"
+                    placeholder="Digite seu usuário"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <span class="input-icon">🔒</span>
+
+                <input
+                    type="password"
+                    id="senha"
+                    placeholder="Digite sua senha"
+                >
+
+            </div>
+
+
+            <div class="options">
+
+                <label>
+                    <input type="checkbox">
+                    Lembrar acesso
+                </label>
+
+                <a href="#">
+                    Esqueci a senha
+                </a>
+
+            </div>
+
+
+            <button type="submit">
+                ACESSAR SISTEMA
+            </button>
+
+            <div id="mensagem"></div>
+
+        </form>
+
+
+        <div class="status">
+
+            <span class="dot"></span>
+
+            SISTEMA ONLINE • CONEXÃO SEGURA
+
+        </div>
+
+    </div>
+
+
+<script>
+
+    /* CRIA PARTÍCULAS */
+
+    const particles = document.getElementById("particles");
+
+    for (let i = 0; i < 45; i++) {
+
+        const particle = document.createElement("div");
+
+        particle.classList.add("particle");
+
+        particle.style.left =
+            Math.random() * 100 + "%";
+
+        particle.style.animationDuration =
+            (Math.random() * 8 + 5) + "s";
+
+        particle.style.animationDelay =
+            (Math.random() * 8) + "s";
+
+        const size =
+            Math.random() * 3 + 1;
+
+        particle.style.width =
+            size + "px";
+
+        particle.style.height =
+            size + "px";
+
+        particles.appendChild(particle);
+
+    }
+
+
+    /* LOGIN */
+
+    const form =
+        document.getElementById("loginForm");
+
+    const mensagem =
+        document.getElementById("mensagem");
+
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const usuario =
+            document.getElementById("usuario").value.trim();
+
+        const senha =
+            document.getElementById("senha").value.trim();
+
+
+        if (usuario.length < 3) {
+
+            mensagem.innerHTML =
+                "⚠ Digite um usuário válido.";
+
+            return;
+
+        }
+
+
+        if (senha.length < 4) {
+
+            mensagem.innerHTML =
+                "⚠ A senha precisa ter pelo menos 4 caracteres.";
+
+            return;
+
+        }
+
+
+        mensagem.innerHTML =
+            "⚡ AUTENTICANDO...";
+
+
+        setTimeout(() => {
+
+            mensagem.innerHTML =
+                "✅ ACESSO AUTORIZADO";
+
+        }, 1200);
+
+    });
+
+</script>
+
+</body>
+</html>
