@@ -1,0 +1,22 @@
+name: Validar index.html
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verificar-index:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar projeto
+        uses: actions/checkout@v4
+
+      - name: Verificar index.html
+        run: |
+          if [ -f "index.html" ]; then
+            echo "index.html encontrado!"
+          else
+            echo "ERRO: index.html não encontrado!"
+            exit 1
+          fi
